@@ -54,78 +54,75 @@ const JoinRequest: React.FC<JoinRequestProps> = ({ onRequestSent, isEmbedded = f
 
   if (requestSent) {
     return (
-      <Card className={`w-full max-w-md mx-auto ${isEmbedded ? 'shadow-lg' : ''}`}>
-        <CardContent className="p-6 text-center">
-          <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-yellow-100 flex items-center justify-center">
-            <Loader2 className="w-8 h-8 text-yellow-600 animate-spin" />
-          </div>
-          <h3 className="text-lg font-semibold text-gray-800 mb-2">تم إرسال الطلب</h3>
-          <p className="text-gray-600 text-sm">
-            مرحباً {name}، تم إرسال طلبك للانضمام للبث الصوتي.
-            يرجى انتظار موافقة المدير.
-          </p>
-          <div className="mt-4 text-xs text-gray-500">
-            سيتم إشعارك عند الموافقة على طلبك
-          </div>
-        </CardContent>
-      </Card>
+      <div className="w-full p-4 sm:p-6 text-center bg-white rounded-lg">
+        <div className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 rounded-full bg-yellow-100 flex items-center justify-center">
+          <Loader2 className="w-6 h-6 sm:w-8 sm:h-8 text-yellow-600 animate-spin" />
+        </div>
+        <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-2">تم إرسال الطلب</h3>
+        <p className="text-gray-600 text-sm">
+          مرحباً {name}، تم إرسال طلبك للانضمام للبث الصوتي.
+          يرجى انتظار موافقة المدير.
+        </p>
+        <div className="mt-3 sm:mt-4 text-xs text-gray-500">
+          سيتم إشعارك عند الموافقة على طلبك
+        </div>
+      </div>
     );
   }
 
   return (
-    <Card className={`w-full max-w-md mx-auto ${isEmbedded ? 'shadow-lg' : ''}`}>
-      <CardHeader className="text-center">
-        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-blue-100 flex items-center justify-center">
-          <Mic className="w-8 h-8 text-blue-600" />
+    <div className="w-full p-4 sm:p-6 bg-white rounded-lg">
+      <div className="text-center mb-4">
+        <div className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 rounded-full bg-blue-100 flex items-center justify-center">
+          <Mic className="w-6 h-6 sm:w-8 sm:h-8 text-blue-600" />
         </div>
-        <CardTitle className="text-xl text-gray-800">
+        <h3 className="text-base sm:text-xl font-semibold text-gray-800 mb-2">
           انضم للبث الصوتي
-        </CardTitle>
-        <p className="text-gray-600 text-sm">
+        </h3>
+        <p className="text-gray-600 text-xs sm:text-sm">
           اكتب اسمك للطلب الانضمام للبث الصوتي المشترك
         </p>
-      </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <Input
-              type="text"
-              placeholder="اكتب اسمك هنا..."
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full text-right"
-              maxLength={50}
-              disabled={isLoading}
-            />
-            <div className="text-xs text-gray-500 mt-1 text-right">
-              {name.length}/50 حرف
-            </div>
+      </div>
+      
+      <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
+        <div>
+          <Input
+            type="text"
+            placeholder="اكتب اسمك هنا..."
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full text-right text-sm sm:text-base"
+            maxLength={50}
+            disabled={isLoading}
+          />
+          <div className="text-xs text-gray-500 mt-1 text-right">
+            {name.length}/50 حرف
           </div>
-          
-          <Button 
-            type="submit" 
-            className="w-full flex items-center justify-center gap-2"
-            disabled={isLoading || !name.trim()}
-          >
-            {isLoading ? (
-              <>
-                <Loader2 className="w-4 h-4 animate-spin" />
-                جاري الإرسال...
-              </>
-            ) : (
-              <>
-                <Send className="w-4 h-4" />
-                إرسال طلب الانضمام
-              </>
-            )}
-          </Button>
-        </form>
-        
-        <div className="mt-4 text-xs text-gray-500 text-center">
-          سيتم عرض طلبك على المدير للموافقة عليه
         </div>
-      </CardContent>
-    </Card>
+        
+        <Button 
+          type="submit" 
+          className="w-full flex items-center justify-center gap-2 text-sm sm:text-base py-2 sm:py-3"
+          disabled={isLoading || !name.trim()}
+        >
+          {isLoading ? (
+            <>
+              <Loader2 className="w-4 h-4 animate-spin" />
+              جاري الإرسال...
+            </>
+          ) : (
+            <>
+              <Send className="w-4 h-4" />
+              إرسال طلب الانضمام
+            </>
+          )}
+        </Button>
+      </form>
+      
+      <div className="mt-3 sm:mt-4 text-xs text-gray-500 text-center">
+        سيتم عرض طلبك على المدير للموافقة عليه
+      </div>
+    </div>
   );
 };
 
