@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Mic, ExternalLink, Copy, Code, Monitor, Smartphone, Tablet, MicOff } from 'lucide-react';
+import { Mic, ExternalLink, Copy, Code, Monitor, Smartphone, Tablet } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
@@ -13,10 +13,10 @@ const EmbeddableWidget: React.FC = () => {
   const [selectedSize, setSelectedSize] = useState('medium');
   
   const embedSizes = {
-    small: { width: '300', height: '200', label: 'صغير - للشريط الجانبي' },
-    medium: { width: '450', height: '250', label: 'متوسط - للمحتوى الأساسي' },
-    large: { width: '600', height: '320', label: 'كبير - للصفحة الرئيسية' },
-    responsive: { width: '100%', height: '250', label: 'متجاوب - يتكيف مع الشاشة' }
+    small: { width: '300', height: '120', label: 'صغير - للشريط الجانبي' },
+    medium: { width: '450', height: '140', label: 'متوسط - للمحتوى الأساسي' },
+    large: { width: '600', height: '160', label: 'كبير - للصفحة الرئيسية' },
+    responsive: { width: '100%', height: '140', label: 'متجاوب - يتكيف مع الشاشة' }
   };
 
   const generateEmbedCode = (size: string) => {
@@ -28,9 +28,10 @@ const EmbeddableWidget: React.FC = () => {
   width="${width}" 
   height="${height}" 
   frameborder="0"
-  style="border: none; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); overflow: hidden;"
+  style="border: none; overflow: hidden; background: transparent;"
   title="البث الصوتي المشترك"
-  allow="microphone">
+  allow="microphone"
+  scrolling="no">
 </iframe>`;
   };
 
@@ -89,7 +90,7 @@ const EmbeddableWidget: React.FC = () => {
         </CardHeader>
         <CardContent>
           <p className="text-gray-600 mb-6">
-            اختر الحجم المناسب لموقعك ثم انسخ الكود واستخدمه في أي مكان تريده
+            اختر الحجم المناسب لموقعك ثم انسخ الكود واستخدمه في أي مكان تريده - الكود يندمج تلقائياً مع تصميم موقعك
           </p>
           
           <Tabs value={selectedSize} onValueChange={setSelectedSize} className="w-full">
@@ -174,11 +175,12 @@ const EmbeddableWidget: React.FC = () => {
             <div className="p-4 bg-amber-50 rounded-lg border border-amber-200">
               <h5 className="font-semibold text-amber-800 mb-2">ملاحظات مهمة:</h5>
               <ul className="text-sm text-amber-700 space-y-1">
-                <li>• الكود محسن للعمل على جميع الأجهزة والمتصفحات</li>
-                <li>• يتضمن تصميماً أنيقاً مع زوايا مدورة وظلال</li>
+                <li>• الكود يندمج تلقائياً مع تصميم موقعك دون إطارات</li>
+                <li>• يعمل على جميع الأجهزة والمتصفحات بسلاسة</li>
                 <li>• الحجم المتجاوب يتكيف تلقائياً مع عرض الحاوي</li>
                 <li>• يدعم صلاحية الوصول للمايكروفون</li>
                 <li>• جميع الطلبات ستظهر في لوحة التحكم للموافقة عليها</li>
+                <li>• خلفية شفافة تتناسب مع أي قالب خارجي</li>
               </ul>
             </div>
           </div>

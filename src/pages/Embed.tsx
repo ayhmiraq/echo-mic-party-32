@@ -46,35 +46,33 @@ const Embed: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 p-4 flex items-center justify-center">
-      <div className="bg-white rounded-xl shadow-lg p-6 max-w-md w-full">
-        <div className="text-center mb-6">
-          <h2 className="text-xl font-bold text-gray-800 mb-2">البث الصوتي المشترك</h2>
-          <p className="text-gray-600 text-sm">انقر على أي مايكروفون للانضمام للبث</p>
-        </div>
-        
-        {/* Microphones Grid */}
-        <div className="grid grid-cols-5 gap-3 mb-4">
-          {Array.from({ length: 5 }, (_, index) => (
-            <Dialog key={index}>
-              <DialogTrigger asChild>
-                <button className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 transition-all duration-200 flex items-center justify-center group shadow-md">
-                  <Mic className="w-6 h-6 text-white group-hover:scale-110 transition-transform" />
-                </button>
-              </DialogTrigger>
-              <DialogContent className="max-w-md">
-                <DialogHeader>
-                  <DialogTitle className="text-right">طلب الانضمام للبث</DialogTitle>
-                </DialogHeader>
-                <JoinRequest onRequestSent={handleJoinRequest} isEmbedded={true} />
-              </DialogContent>
-            </Dialog>
-          ))}
-        </div>
-        
-        <div className="text-center text-xs text-gray-500 mt-4">
-          متاح 5 مقاعد للبث الصوتي
-        </div>
+    <div className="p-2">
+      <div className="text-center mb-3">
+        <h2 className="text-lg font-bold text-gray-800 mb-1">البث الصوتي المشترك</h2>
+        <p className="text-gray-600 text-xs">انقر على أي مايكروفون للانضمام للبث</p>
+      </div>
+      
+      {/* Microphones Grid */}
+      <div className="grid grid-cols-5 gap-2 mb-2">
+        {Array.from({ length: 5 }, (_, index) => (
+          <Dialog key={index}>
+            <DialogTrigger asChild>
+              <button className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 transition-all duration-200 flex items-center justify-center group shadow-sm">
+                <Mic className="w-5 h-5 text-white group-hover:scale-110 transition-transform" />
+              </button>
+            </DialogTrigger>
+            <DialogContent className="max-w-md">
+              <DialogHeader>
+                <DialogTitle className="text-right">طلب الانضمام للبث</DialogTitle>
+              </DialogHeader>
+              <JoinRequest onRequestSent={handleJoinRequest} isEmbedded={true} />
+            </DialogContent>
+          </Dialog>
+        ))}
+      </div>
+      
+      <div className="text-center text-xs text-gray-500">
+        متاح 5 مقاعد للبث الصوتي
       </div>
     </div>
   );
