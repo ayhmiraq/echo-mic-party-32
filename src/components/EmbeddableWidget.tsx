@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Mic, ExternalLink, Copy, Code, Monitor, Smartphone, Tablet } from 'lucide-react';
+import { Mic, ExternalLink, Copy, Code, Monitor, Smartphone, Tablet, MicOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
@@ -13,23 +13,24 @@ const EmbeddableWidget: React.FC = () => {
   const [selectedSize, setSelectedSize] = useState('medium');
   
   const embedSizes = {
-    small: { width: '300', height: '180', label: 'صغير - للشريط الجانبي' },
-    medium: { width: '400', height: '240', label: 'متوسط - للمحتوى الأساسي' },
-    large: { width: '600', height: '300', label: 'كبير - للصفحة الرئيسية' },
-    responsive: { width: '100%', height: '240', label: 'متجاوب - يتكيف مع الشاشة' }
+    small: { width: '300', height: '200', label: 'صغير - للشريط الجانبي' },
+    medium: { width: '450', height: '250', label: 'متوسط - للمحتوى الأساسي' },
+    large: { width: '600', height: '320', label: 'كبير - للصفحة الرئيسية' },
+    responsive: { width: '100%', height: '250', label: 'متجاوب - يتكيف مع الشاشة' }
   };
 
   const generateEmbedCode = (size: string) => {
     const { width, height } = embedSizes[size as keyof typeof embedSizes];
-    const widthValue = width === '100%' ? '"100%"' : width;
+    const widgetUrl = `${window.location.origin}/embed`;
     
     return `<iframe 
-  src="${window.location.origin}/embed" 
-  width="${widthValue}" 
+  src="${widgetUrl}" 
+  width="${width}" 
   height="${height}" 
   frameborder="0"
-  style="border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); max-width: 100%;"
-  title="البث الصوتي المشترك">
+  style="border: none; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); overflow: hidden;"
+  title="البث الصوتي المشترك"
+  allow="microphone">
 </iframe>`;
   };
 
@@ -48,34 +49,33 @@ const EmbeddableWidget: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      {/* Embeddable Button Preview */}
+      {/* Microphones Preview Widget */}
       <Card className="bg-gradient-to-r from-blue-500 to-purple-600 text-white">
-        <CardContent className="p-6 text-center">
-          <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-white/20 flex items-center justify-center">
-            <Mic className="w-10 h-10" />
-          </div>
-          <h2 className="text-2xl font-bold mb-2">انضم للبث الصوتي</h2>
-          <p className="text-blue-100 mb-6">
-            شارك في المحادثة الصوتية مع الآخرين
-          </p>
+        <CardContent className="p-6">
+          <h2 className="text-xl font-bold mb-4 text-center">البث الصوتي المشترك</h2>
           
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button 
-                size="lg" 
-                className="bg-white text-blue-600 hover:bg-blue-50 px-8"
-              >
-                <Mic className="w-5 h-5 mr-2" />
-                طلب الانضمام
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="max-w-md">
-              <DialogHeader>
-                <DialogTitle className="text-right">طلب الانضمام للبث</DialogTitle>
-              </DialogHeader>
-              <JoinRequest onRequestSent={handleJoinRequest} isEmbedded={true} />
-            </DialogContent>
-          </Dialog>
+          {/* Microphones Grid */}
+          <div className="grid grid-cols-5 gap-3 mb-4">
+            {Array.from({ length: 5 }, (_, index) => (
+              <Dialog key={index}>
+                <DialogTrigger asChild>
+                  <button className="w-12 h-12 rounded-full bg-white/20 hover:bg-white/30 transition-all duration-200 flex items-center justify-center group">
+                    <Mic className="w-6 h-6 text-white group-hover:scale-110 transition-transform" />
+                  </button>
+                </DialogTrigger>
+                <DialogContent className="max-w-md">
+                  <DialogHeader>
+                    <DialogTitle className="text-right">طلب الانضمام للبث</DialogTitle>
+                  </DialogHeader>
+                  <JoinRequest onRequestSent={handleJoinRequest} isEmbedded={true} />
+                </DialogContent>
+              </Dialog>
+            ))}
+          </div>
+          
+          <p className="text-blue-100 text-center text-sm">
+            انقر على أي مايكروفون للانضمام للبث الصوتي
+          </p>
         </CardContent>
       </Card>
 
@@ -125,7 +125,7 @@ const EmbeddableWidget: React.FC = () => {
                   <Textarea
                     value={generateEmbedCode(size)}
                     readOnly
-                    className="font-mono text-sm min-h-[120px] bg-gray-50"
+                    className="font-mono text-sm min-h-[140px] bg-gray-50"
                   />
                   
                   <div className="flex gap-2">
@@ -177,6 +177,7 @@ const EmbeddableWidget: React.FC = () => {
                 <li>• الكود محسن للعمل على جميع الأجهزة والمتصفحات</li>
                 <li>• يتضمن تصميماً أنيقاً مع زوايا مدورة وظلال</li>
                 <li>• الحجم المتجاوب يتكيف تلقائياً مع عرض الحاوي</li>
+                <li>• يدعم صلاحية الوصول للمايكروفون</li>
                 <li>• جميع الطلبات ستظهر في لوحة التحكم للموافقة عليها</li>
               </ul>
             </div>

@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Check, X, Ban, Users, Eye, ArrowLeft } from 'lucide-react';
+import { Check, X, Ban, Users, Eye, ArrowLeft, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -12,6 +12,10 @@ interface JoinRequest {
   name: string;
   requestedAt: Date;
   status: 'pending' | 'approved' | 'rejected' | 'banned';
+  ip?: string;
+  country?: string;
+  countryCode?: string;
+  city?: string;
 }
 
 interface AdminPanelProps {
@@ -24,24 +28,45 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ onBack }) => {
       id: '1',
       name: 'أحمد محمد',
       requestedAt: new Date(),
-      status: 'pending'
+      status: 'pending',
+      ip: '192.168.1.100',
+      country: 'المملكة العربية السعودية',
+      countryCode: 'SA',
+      city: 'الرياض'
     },
     {
       id: '2',
       name: 'فاطمة علي',
       requestedAt: new Date(Date.now() - 300000),
-      status: 'pending'
+      status: 'pending',
+      ip: '10.0.0.50',
+      country: 'الإمارات العربية المتحدة',
+      countryCode: 'AE',
+      city: 'دبي'
     },
     {
       id: '3',
       name: 'محمد حسن',
       requestedAt: new Date(Date.now() - 600000),
-      status: 'approved'
+      status: 'approved',
+      ip: '172.16.0.25',
+      country: 'مصر',
+      countryCode: 'EG',
+      city: 'القاهرة'
     }
   ]);
 
   const [bannedUsers, setBannedUsers] = useState<string[]>([]);
   const [approvedUsers, setApprovedUsers] = useState<string[]>(['3']);
+
+  const getFlagEmoji = (countryCode: string) => {
+    if (!countryCode) return '🌍';
+    const codePoints = countryCode
+      .toUpperCase()
+      .split('')
+      .map(char => 127397 + char.charCodeAt(0));
+    return String.fromCodePoint(...codePoints);
+  };
 
   const handleApprove = (requestId: string) => {
     setJoinRequests(prev => 
@@ -197,13 +222,34 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ onBack }) => {
               ) : (
                 <div className="space-y-4">
                   {pendingRequests.map((request) => (
-                    <div key={request.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                      <div className="flex-1">
-                        <h3 className="font-medium text-gray-900">{request.name}</h3>
-                        <p className="text-sm text-gray-500">
-                          طلب الانضمام منذ {Math.floor((Date.now() - request.requestedAt.getTime()) / 60000)} دقائق
-                        </p>
+                    <div key={request.id} className="p-4 bg-gray-50 rounded-lg border">
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-1">
+                            <h3 className="font-medium text-gray-900">{request.name}</h3>
+                            {request.countryCode && (
+                              <span className="text-lg" title={request.country}>
+                                {getFlagEmoji(request.countryCode)}
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-sm text-gray-500">
+                            طلب الانضمام منذ {Math.floor((Date.now() - request.requestedAt.getTime()) / 60000)} دقائق
+                          </p>
+                        </div>
                       </div>
+                      
+                      {/* Location and IP Info */}
+                      <div className="mb-3 p-2 bg-white rounded border-l-4 border-l-blue-500">
+                        <div className="flex items-center gap-2 text-sm text-gray-600">
+                          <Globe className="w-4 h-4" />
+                          <div className="flex flex-col">
+                            <span>IP: {request.ip || 'غير متوفر'}</span>
+                            <span>{request.city}, {request.country}</span>
+                          </div>
+                        </div>
+                      </div>
+                      
                       <div className="flex gap-2">
                         <Button
                           onClick={() => handleApprove(request.id)}
@@ -249,13 +295,34 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ onBack }) => {
               ) : (
                 <div className="space-y-4">
                   {approvedRequests.map((request) => (
-                    <div key={request.id} className="flex items-center justify-between p-4 bg-green-50 rounded-lg">
-                      <div className="flex-1">
-                        <h3 className="font-medium text-gray-900">{request.name}</h3>
-                        <Badge className={getStatusColor(request.status)}>
-                          {getStatusText(request.status)}
-                        </Badge>
+                    <div key={request.id} className="p-4 bg-green-50 rounded-lg border border-green-200">
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-1">
+                            <h3 className="font-medium text-gray-900">{request.name}</h3>
+                            {request.countryCode && (
+                              <span className="text-lg" title={request.country}>
+                                {getFlagEmoji(request.countryCode)}
+                              </span>
+                            )}
+                          </div>
+                          <Badge className={getStatusColor(request.status)}>
+                            {getStatusText(request.status)}
+                          </Badge>
+                        </div>
                       </div>
+                      
+                      {/* Location and IP Info */}
+                      <div className="mb-3 p-2 bg-white rounded border-l-4 border-l-green-500">
+                        <div className="flex items-center gap-2 text-sm text-gray-600">
+                          <Globe className="w-4 h-4" />
+                          <div className="flex flex-col">
+                            <span>IP: {request.ip || 'غير متوفر'}</span>
+                            <span>{request.city}, {request.country}</span>
+                          </div>
+                        </div>
+                      </div>
+                      
                       <div className="flex gap-2">
                         <Button
                           onClick={() => handleRemoveFromBroadcast(request.id)}
@@ -292,11 +359,21 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ onBack }) => {
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {bannedRequests.map((request) => (
-                  <div key={request.id} className="p-4 bg-red-50 rounded-lg">
-                    <h3 className="font-medium text-gray-900">{request.name}</h3>
+                  <div key={request.id} className="p-4 bg-red-50 rounded-lg border border-red-200">
+                    <div className="flex items-center gap-2 mb-2">
+                      <h3 className="font-medium text-gray-900">{request.name}</h3>
+                      {request.countryCode && (
+                        <span className="text-lg" title={request.country}>
+                          {getFlagEmoji(request.countryCode)}
+                        </span>
+                      )}
+                    </div>
                     <Badge className={getStatusColor(request.status)}>
                       {getStatusText(request.status)}
                     </Badge>
+                    <div className="mt-2 p-2 bg-white rounded text-xs text-gray-600">
+                      IP: {request.ip} | {request.city}
+                    </div>
                   </div>
                 ))}
               </div>
