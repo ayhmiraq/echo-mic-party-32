@@ -66,26 +66,26 @@ const JoinRequest: React.FC<JoinRequestProps> = ({ onRequestSent, isEmbedded = f
   }
 
   return (
-    <div className="w-full p-6">
-      <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="w-full p-4">
+      <form onSubmit={handleSubmit}>
         <div className="flex gap-2">
           <Input
             type="text"
             placeholder="اكتب اسمك..."
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="flex-1 text-right text-base rounded-full px-6 py-3 border-2 border-gray-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-200 shadow-sm"
+            className="flex-1 text-right text-sm rounded-full px-4 py-2 border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all duration-200 shadow-sm"
             maxLength={50}
             disabled={isLoading}
           />
           
           <Button 
             type="submit" 
-            className="px-6 py-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 transition-all duration-200 shadow-md hover:shadow-lg"
+            className="px-4 py-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 transition-all duration-200 shadow-md hover:shadow-lg text-sm"
             disabled={isLoading || !name.trim()}
           >
             {isLoading ? (
-              <Loader2 className="w-4 h-4 animate-spin" />
+              <Loader2 className="w-3 h-3 animate-spin" />
             ) : (
               "انضم"
             )}
