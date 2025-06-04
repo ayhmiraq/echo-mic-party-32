@@ -68,33 +68,29 @@ const JoinRequest: React.FC<JoinRequestProps> = ({ onRequestSent, isEmbedded = f
   return (
     <div className="w-full p-6">
       <form onSubmit={handleSubmit} className="space-y-4">
-        <Input
-          type="text"
-          placeholder="اكتب اسمك..."
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="w-full text-right text-base rounded-full px-6 py-3 border-2 border-gray-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-200 shadow-sm"
-          maxLength={50}
-          disabled={isLoading}
-        />
-        
-        <Button 
-          type="submit" 
-          className="w-full flex items-center justify-center gap-2 text-base py-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 transition-all duration-200 shadow-md hover:shadow-lg"
-          disabled={isLoading || !name.trim()}
-        >
-          {isLoading ? (
-            <>
+        <div className="flex gap-2">
+          <Input
+            type="text"
+            placeholder="اكتب اسمك..."
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="flex-1 text-right text-base rounded-full px-6 py-3 border-2 border-gray-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-200 shadow-sm"
+            maxLength={50}
+            disabled={isLoading}
+          />
+          
+          <Button 
+            type="submit" 
+            className="px-6 py-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 transition-all duration-200 shadow-md hover:shadow-lg"
+            disabled={isLoading || !name.trim()}
+          >
+            {isLoading ? (
               <Loader2 className="w-4 h-4 animate-spin" />
-              جاري الإرسال...
-            </>
-          ) : (
-            <>
-              <Send className="w-4 h-4" />
-              انضمام
-            </>
-          )}
-        </Button>
+            ) : (
+              "انضم"
+            )}
+          </Button>
+        </div>
       </form>
     </div>
   );
