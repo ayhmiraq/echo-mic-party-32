@@ -67,19 +67,10 @@ const JoinRequest: React.FC<JoinRequestProps> = ({ onRequestSent, isEmbedded = f
 
   return (
     <div className="w-full p-6">
-      <div className="text-center mb-6">
-        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-blue-100 flex items-center justify-center">
-          <Mic className="w-8 h-8 text-blue-600" />
-        </div>
-        <h3 className="text-xl font-semibold text-gray-800 mb-2">
-          اكتب اسمك
-        </h3>
-      </div>
-      
       <form onSubmit={handleSubmit} className="space-y-4">
         <Input
           type="text"
-          placeholder="الاسم..."
+          placeholder="اكتب اسمك..."
           value={name}
           onChange={(e) => setName(e.target.value)}
           className="w-full text-right text-base rounded-full px-6 py-3 border-2 border-gray-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-200 shadow-sm"
