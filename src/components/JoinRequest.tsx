@@ -82,14 +82,14 @@ const JoinRequest: React.FC<JoinRequestProps> = ({ onRequestSent, isEmbedded = f
           placeholder="الاسم..."
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full text-right text-base"
+          className="w-full text-right text-base rounded-full px-6 py-3 border-2 border-gray-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-200 shadow-sm"
           maxLength={50}
           disabled={isLoading}
         />
         
         <Button 
           type="submit" 
-          className="w-full flex items-center justify-center gap-2 text-base py-3"
+          className="w-full flex items-center justify-center gap-2 text-base py-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 transition-all duration-200 shadow-md hover:shadow-lg"
           disabled={isLoading || !name.trim()}
         >
           {isLoading ? (
