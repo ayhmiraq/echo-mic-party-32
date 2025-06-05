@@ -1,9 +1,8 @@
-
 import React, { useState } from 'react';
 import { Mic, ExternalLink, Copy, Code, Monitor, Smartphone, Tablet } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from '@/hooks/use-toast';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -65,9 +64,6 @@ const EmbeddableWidget: React.FC = () => {
                   </button>
                 </DialogTrigger>
                 <DialogContent className="max-w-md">
-                  <DialogHeader>
-                    <DialogTitle className="text-right">طلب الانضمام للبث</DialogTitle>
-                  </DialogHeader>
                   <JoinRequest onRequestSent={handleJoinRequest} isEmbedded={true} />
                 </DialogContent>
               </Dialog>

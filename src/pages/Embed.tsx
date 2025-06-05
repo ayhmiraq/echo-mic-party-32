@@ -1,7 +1,6 @@
-
 import React from 'react';
 import { Mic } from 'lucide-react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import JoinRequest from '@/components/JoinRequest';
 
 const Embed: React.FC = () => {
@@ -62,9 +61,6 @@ const Embed: React.FC = () => {
               </button>
             </DialogTrigger>
             <DialogContent className="max-w-md">
-              <DialogHeader>
-                <DialogTitle className="text-right">طلب الانضمام للبث</DialogTitle>
-              </DialogHeader>
               <JoinRequest onRequestSent={handleJoinRequest} isEmbedded={true} />
             </DialogContent>
           </Dialog>

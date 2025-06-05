@@ -71,17 +71,17 @@ const JoinRequest: React.FC<JoinRequestProps> = ({ onRequestSent, isEmbedded = f
         <div className="flex gap-2">
           <Input
             type="text"
-            placeholder="اكتب اسمك..."
+            placeholder="اكتب اسمك"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="flex-1 text-right text-sm rounded-full px-4 py-2 border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all duration-200 shadow-sm"
+            className="flex-1 text-right text-sm rounded-full px-3 py-1.5 border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all duration-200 shadow-sm max-w-xs"
             maxLength={50}
             disabled={isLoading}
           />
           
           <Button 
             type="submit" 
-            className="px-4 py-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 transition-all duration-200 shadow-md hover:shadow-lg text-sm"
+            className="px-3 py-1.5 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 transition-all duration-200 shadow-md hover:shadow-lg text-xs"
             disabled={isLoading || !name.trim()}
           >
             {isLoading ? (
